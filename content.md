@@ -1,3 +1,5 @@
+[![Netlify Status](https://api.netlify.com/api/v1/badges/65b1ff01-580c-4c31-972b-5e0ab2d51260/deploy-status)](https://app.netlify.com/sites/bing-wallpaper/deploys)
+
 # Bing Wallpaper
 
 Bing Wallpaper is a proxy application that simplifies the use of BING daily wallpaper.

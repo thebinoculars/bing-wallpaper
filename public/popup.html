@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Bing Wallpaper</title>
+		<link href="popup.css" rel="stylesheet" />
+	</head>
+	<body>
+		<div class="container">
+			<h2>Bing Wallpaper</h2>
+			<div class="form-group">
+				<label for="width">Width: <span id="width-value">1920</span></label>
+				<input
+					type="range"
+					id="width"
+					name="width"
+					min="100"
+					max="3000"
+					value="1920"
+					class="slider"
+				/>
+			</div>
+			<div class="form-group">
+				<label for="height">Height: <span id="height-value">1080</span></label>
+				<input
+					type="range"
+					id="height"
+					name="height"
+					min="100"
+					max="3000"
+					value="1080"
+					class="slider"
+				/>
+			</div>
+			<div class="form-group">
+				<label for="quality"
+					>Quality: <span id="quality-value">100</span></label
+				>
+				<input
+					type="range"
+					id="quality"
+					name="quality"
+					min="1"
+					max="100"
+					value="100"
+					class="slider"
+				/>
+			</div>
+			<div class="form-group">
+				<label for="resolution">Resolution:</label>
+				<select id="resolution" name="resolution" class="select">
+					<option value="240x320">240x320</option>
+					<option value="320x240">320x240</option>
+					<option value="400x240">400x240</option>
+					<option value="480x800">480x800</option>
+					<option value="640x480">640x480</option>
+					<option value="720x1280">720x1280</option>
+					<option value="768x1280">768x1280</option>
+					<option value="800x480">800x480</option>
+					<option value="800x600">800x600</option>
+					<option value="1024x768">1024x768</option>
+					<option value="1280x768">1280x768</option>
+					<option value="1366x768">1366x768</option>
+					<option value="1920x1080" selected>1920x1080</option>
+					<option value="1920x1200">1920x1200</option>
+					<option value="UHD">UHD</option>
+				</select>
+			</div>
+			<div class="button-group">
+				<button class="button" id="preview-wallpaper">Preview</button>
+				<button class="button" id="change-wallpaper">Set Wallpaper</button>
+			</div>
+		</div>
+		<script src="popup.js"></script>
+	</body>
+</html>

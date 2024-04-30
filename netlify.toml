@@ -1,0 +1,11 @@
+[build]
+  functions = "functions"
+  publish = "build/"
+[[redirects]]
+  from = "/wallpaper/*"
+  to = "/.netlify/functions/wallpaper/:splat"
+  status = 200
+[[redirects]]
+  from = "/"
+  to = "/popup.html"
+  status = 200

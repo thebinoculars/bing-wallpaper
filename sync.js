@@ -10,11 +10,12 @@ const syncData = async () => {
 	try {
 		const { images } = await fetchBingData()
 		const imageData = images[0]
-		const currentDate = new Date()
-		const month = `${currentDate.getFullYear()}-${(currentDate.getMonth() + 1)
-			.toString()
-			.padStart(2, '0')}`
-		const folderName = `archives/${month}`
+		const startDate = imageData.startdate
+		const year = startDate.substring(0, 4)
+		const month = startDate.substring(4, 6)
+		const monthString = `${year}-${month}`
+
+		const folderName = `archives/${monthString}`
 		const jsonFilename = `${folderName}/data.json`
 		const mdFilename = `${folderName}/README.md`
 
@@ -36,9 +37,10 @@ const syncData = async () => {
 			await writeFileAsync(jsonFilename, JSON.stringify(jsonData, null, 2))
 		}
 
-		const staticContent = await readFileAsync('content.md', 'utf8')
-		await writeFileAsync(mdFilename, generateMarkdownContent(jsonData, staticContent))
-		await writeFileAsync('README.md', generateMarkdownContent(jsonData, staticContent, true))
+		const dynamicContent = generateMarkdownContent(jsonData, monthString)
+
+		await writeFileAsync(mdFilename, dynamicContent)
+		await writeFileAsync('README.md', replaceMarkdownContent(dynamicContent))
 	} catch (error) {
 		console.error('Something went wrong: ', error.message)
 	}
@@ -57,7 +59,7 @@ const generateTableRow = (length, cell) => {
 	return `|${content}|`
 }
 
-const generateMarkdownContent = (jsonData, staticContent, hasFooter = false) => {
+const generateMarkdownContent = (jsonData, month) => {
 	const rowNumber = 3
 	const resolutions = [
 		'240x320',
@@ -79,7 +81,7 @@ const generateMarkdownContent = (jsonData, staticContent, hasFooter = false) => 
 
 	const archiveFolders = fs.readdirSync('archives', { withFileTypes: true })
 
-	let content = staticContent + '\n' + '## Daily Wallpaper' + '\n'
+	let content = `## Wallpaper for ${month}` + '\n'
 
 	content += generateTableRow(rowNumber, `      `) + '\n'
 	content += generateTableRow(rowNumber, ` :----: `) + '\n'
@@ -105,15 +107,21 @@ const generateMarkdownContent = (jsonData, staticContent, hasFooter = false) => 
 			.map((items) => `|${items.join('|')}|`)
 			.join('\n') + '\n\n'
 
-	if (hasFooter) {
-		content += '## Archives\n'
-		content += archiveFolders
-			.filter((folder) => folder.isDirectory())
-			.map((folder) => `[${folder.name}](/archives/${folder.name}/)`)
-			.join('|')
-	}
+	content += '## Archives\n'
+	content += archiveFolders
+		.filter((folder) => folder.isDirectory())
+		.map((folder) => `[${folder.name}](/archives/${folder.name}/)`)
+		.join('|')
 
 	return content
+}
+
+const replaceMarkdownContent = (dynamicContent) => {
+	const staticContent = fs.readFileSync('template.md', 'utf8')
+	return staticContent.replace(
+		'<!-- GENERATED_CONTENT_PLACEHOLDER -->',
+		dynamicContent
+	)
 }
 
 syncData()

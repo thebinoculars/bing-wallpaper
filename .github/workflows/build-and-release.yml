@@ -34,8 +34,18 @@ jobs:
       - name: Build and Zip Extension
         run: yarn repack
 
+      - name: Check if release exists
+        id: check-release
+        run: |
+          response=$(curl -s -o /dev/null -w "%{http_code}" https://api.github.com/repos/${{ github.repository }}/releases/tags/v${{ steps.get-version.outputs.version }})
+          if [ $response -eq 200 ]; then
+            echo "Release already exists. Exiting..."
+            exit 0
+          fi
+
       - name: Create Release
         id: create_release
+        if: steps.check-release.run != '0'
         uses: actions/create-release@v1
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
@@ -49,6 +59,7 @@ jobs:
 
       - name: Upload Release Asset
         id: upload-release-asset
+        if: steps.check-release.run != '0'
         uses: actions/upload-release-asset@v1
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

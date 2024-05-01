@@ -56,3 +56,5 @@ Format the source code:
 ```
 yarn format
 ```
+
+<!-- GENERATED_CONTENT_PLACEHOLDER -->

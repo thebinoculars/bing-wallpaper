@@ -27,7 +27,7 @@ jobs:
         run: |
           git config --global user.name "GitHub Actions"
           git config --global user.email "actions@users.noreply.github.com"
-          git pull
+          git fetch origin master
           git add .
           git diff --quiet && git diff --staged --quiet || git commit -m "Automated sync"
           git push

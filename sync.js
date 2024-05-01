@@ -29,11 +29,11 @@ const syncData = async () => {
 			jsonData = JSON.parse(jsonContent)
 		}
 		const existingItemIndex = jsonData.findIndex(
-			(item) => item.enddate === imageData.enddate
+			(item) => item.startdate === imageData.startdate
 		)
 		if (existingItemIndex === -1) {
 			jsonData.push(imageData)
-			jsonData.sort((a, b) => (a.enddate > b.enddate ? -1 : 1))
+			jsonData.sort((a, b) => (a.startdate > b.startdate ? -1 : 1))
 			await writeFileAsync(jsonFilename, JSON.stringify(jsonData, null, 2))
 		}
 
@@ -99,7 +99,7 @@ const generateMarkdownContent = (jsonData, month) => {
 					.join(' ~ ')
 
 				return `![${data.copyright}](${imageURL}) ${convertDate(
-					data.enddate
+					data.startdate
 				)} <br /> ${downloadLinksMarkdown}`
 			}),
 			rowNumber

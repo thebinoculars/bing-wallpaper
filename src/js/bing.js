@@ -7,6 +7,7 @@ const fetchBingData = () => {
 		format: 'js',
 		idx: '-1',
 		n: 1,
+		mkt: 'vi-VN',
 	})
 
 	return fetch(`${bingBaseURL}/HPImageArchive.aspx?${searchParams}`)

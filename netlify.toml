@@ -9,7 +9,7 @@
   from = "/"
   to = "/popup.html"
   status = 200
-[[[headers]]]
+[[headers]]
   for = "/*"
     [headers.values]
       Cache-Control = "no-cache"

@@ -88,7 +88,9 @@ const generateMarkdownContent = (jsonData, month) => {
 	content +=
 		chunk(
 			jsonData.map((data) => {
-				const imageURL = modifyImageUrl(`${bingBaseURL}${data.url}`)
+				const imageURL = modifyImageUrl(`${bingBaseURL}${data.url}`, {
+					res: resolutions[0],
+				})
 				const downloadLinksMarkdown = resolutions
 					.map((size) => {
 						const imageBySizeURL = modifyImageUrl(`${bingBaseURL}${data.url}`, {

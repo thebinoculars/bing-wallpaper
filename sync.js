@@ -100,9 +100,9 @@ const generateMarkdownContent = (jsonData, month) => {
 					})
 					.join(' ~ ')
 
-				return `![${data.copyright}](${imageURL}) ${convertDate(
+				return `![${data.copyright}](${imageURL})<br />${convertDate(
 					data.startdate
-				)} <br /> ${downloadLinksMarkdown}`
+				)}<br />${downloadLinksMarkdown}`
 			}),
 			rowNumber
 		)

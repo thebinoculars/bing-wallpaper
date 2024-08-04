@@ -113,6 +113,7 @@ const generateMarkdownContent = (jsonData, month) => {
 	content += archiveFolders
 		.filter((folder) => folder.isDirectory())
 		.map((folder) => `[${folder.name}](/archives/${folder.name}/)`)
+		.toReversed()
 		.join(' | ')
 
 	return content

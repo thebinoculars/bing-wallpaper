@@ -1,6 +1,7 @@
 [build]
   functions = "functions"
   publish = "build/"
+  ignore = "git diff --quiet $CACHED_COMMIT_REF $COMMIT_REF config functions public src"
 [[redirects]]
   from = "/wallpaper/*"
   to = "/.netlify/functions/wallpaper/:splat"
@@ -13,5 +14,3 @@
   for = "/*"
     [headers.values]
       Cache-Control = "no-cache"
-[build]
-  ignore = "git diff --quiet $CACHED_COMMIT_REF $COMMIT_REF config functions public src"

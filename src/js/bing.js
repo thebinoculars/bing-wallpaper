@@ -5,7 +5,7 @@ const bingBaseURL = 'https://www.bing.com'
 const fetchBingData = () => {
 	const searchParams = new URLSearchParams({
 		format: 'js',
-		idx: '-1',
+		idx: -1, // -1 today, 0 yesterday
 		n: 1,
 		mkt: 'vi-VN',
 	})

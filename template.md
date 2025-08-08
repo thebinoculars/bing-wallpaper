@@ -23,7 +23,7 @@ Embed directly using the img tag:
 
 ## Browser Extension
 
-We also provide a browser extension that allows you to change the background image of a web page with BING daily wallpaper. Download it [here](https://github.com/antiheroguy/bing-wallpaper/releases).
+We also provide a browser extension that allows you to change the background image of a web page with BING daily wallpaper. Download it [here](../../releases).
 
 ## Development
 

@@ -16,13 +16,13 @@ jobs:
       - name: Setup Node.js environment
         uses: actions/setup-node@v2
         with:
-          node-version: 18
+          node-version: 22
 
       - name: Install dependencies
         run: yarn
 
       - name: Run sync script
-        run: node sync.js
+        run: node scripts/sync.js
 
       - name: Commit changes
         run: |

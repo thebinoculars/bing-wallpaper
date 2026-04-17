@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Bing Wallpaper Viewer</title>
+		<link rel="stylesheet" href="./style.css" />
+		<link rel="icon" href="favicon.ico" />
+	</head>
+	<body>
+		<div id="loading" class="loading">Loading...</div>
+		<div id="error" class="error hidden"></div>
+
+		<div id="image-title" class="image-title"></div>
+
+		<div class="main-image">
+			<img id="wallpaper-image" alt="Bing Wallpaper" />
+		</div>
+
+		<button id="prev-day" class="nav-btn left" aria-label="Previous day">
+			&lt;
+		</button>
+
+		<button id="next-day" class="nav-btn right" aria-label="Next day">
+			&gt;
+		</button>
+
+		<input type="date" id="date-picker" />
+
+		<script type="module" src="./app.js"></script>
+	</body>
+</html>

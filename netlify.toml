@@ -1,16 +1,10 @@
 [build]
-  functions = "functions"
-  publish = "build/"
-  ignore = "git diff --quiet $CACHED_COMMIT_REF $COMMIT_REF config functions public src"
+  functions = "api"
+  publish = "dist"
+  command = "yarn build"
+  ignore = "git diff --quiet $CACHED_COMMIT_REF $COMMIT_REF api public scripts netlify.toml package.json vite.config.js"
+
 [[redirects]]
   from = "/wallpaper/*"
   to = "/.netlify/functions/wallpaper/:splat"
   status = 200
-[[redirects]]
-  from = "/"
-  to = "/popup.html"
-  status = 200
-[[headers]]
-  for = "/*"
-    [headers.values]
-      Cache-Control = "no-cache"

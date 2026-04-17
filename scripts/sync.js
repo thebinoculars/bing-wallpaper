@@ -1,7 +1,7 @@
 const fs = require('fs')
 const { promisify } = require('util')
 const chunk = require('lodash/chunk')
-const { fetchBingData, modifyImageUrl, bingBaseURL } = require('./src/js/bing')
+const { fetchBingData, modifyImageUrl, bingBaseURL } = require('./bing')
 
 const writeFileAsync = promisify(fs.writeFile)
 const readFileAsync = promisify(fs.readFile)

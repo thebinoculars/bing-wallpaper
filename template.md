@@ -21,35 +21,7 @@ Embed directly using the img tag:
 - **res**: resolution of the image
 - **qlt**: quality of the image
 
-## Browser Extension
-
-We also provide a browser extension that allows you to change the background image of a web page with BING daily wallpaper. Download it [here](../../releases).
-
 ## Development
-
-Listen for changes and automatically build in real-time with the development environment:
-
-```
-yarn watch
-```
-
-Build the extension into the `build` folder with the production environment:
-
-```
-yarn build
-```
-
-Package the built extension into the `release` directory:
-
-```
-yarn pack
-```
-
-Combines the build and pack scripts:
-
-```
-yarn repack
-```
 
 Format the source code:
 

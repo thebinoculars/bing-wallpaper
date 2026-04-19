@@ -21,13 +21,12 @@ Embed directly using the img tag:
 - **res**: resolution of the image
 - **qlt**: quality of the image
 
-## Development
+## Image Viewer
 
-Format the source code:
-
-```
-yarn format
-```
+Visit [Bing Wallpaper](https://bing-wallpaper.netlify.app) to view Bing daily wallpapers in an interactive gallery. You can:
+- Browse wallpapers by date using navigation buttons
+- Select a specific date using the date picker
+- View high-quality images with titles and descriptions
 
 ## Wallpaper for 2026-04
 |      |      |      |

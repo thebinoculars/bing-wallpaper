@@ -4,18 +4,14 @@
   "description": "Bing Wallpaper",
   "private": true,
   "scripts": {
-    "sync": "node scripts/sync.js",
     "dev": "vite",
     "build": "vite build",
-    "preview": "vite preview",
-    "format": "prettier --write --ignore-unknown \"{scripts,public,api}/**/*.{html,css,js,ts,json}\""
+    "preview": "vite preview"
   },
   "dependencies": {
-    "cross-fetch": "^4.0.0",
-    "lodash": "^4.17.21"
+    "axios": "^1.7.9"
   },
   "devDependencies": {
-    "prettier": "^2.8.8",
     "vite": "^8.0.8"
   }
 }

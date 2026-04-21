@@ -31,6 +31,12 @@ body {
 	object-fit: cover;
 	object-position: center;
 	pointer-events: none;
+	opacity: 0;
+	transition: opacity 0.5s ease;
+}
+
+#wallpaper-image.loaded {
+	opacity: 1;
 }
 
 .image-title {

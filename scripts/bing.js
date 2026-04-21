@@ -1,21 +1,22 @@
-const fetch = require('cross-fetch')
+const axios = require('axios')
 
 const bingBaseURL = 'https://www.bing.com'
 
-const fetchBingData = () => {
-	const searchParams = new URLSearchParams({
-		format: 'js',
-		idx: -1, // -1 today, 0 yesterday
-		n: 1,
-		mkt: 'vi-VN',
-	})
-
-	return fetch(`${bingBaseURL}/HPImageArchive.aspx?${searchParams}`)
-		.then((response) => response.json())
-		.catch((error) => {
-			console.error('Error fetching Bing data:', error)
-			throw error
+const fetchBingData = async () => {
+	try {
+		const response = await axios.get(`${bingBaseURL}/HPImageArchive.aspx`, {
+			params: {
+				format: 'js',
+				idx: -1, // -1 today, 0 yesterday
+				n: 1,
+				mkt: 'vi-VN',
+			},
 		})
+		return response.data
+	} catch (error) {
+		console.error('Error fetching Bing data:', error)
+		throw error
+	}
 }
 
 const getImageURL = async (params) => {

@@ -1,10 +1,13 @@
-const fs = require('fs')
-const { promisify } = require('util')
-const chunk = require('lodash/chunk')
+const fs = require('fs/promises')
 const { fetchBingData, modifyImageUrl, bingBaseURL } = require('./bing')
 
-const writeFileAsync = promisify(fs.writeFile)
-const readFileAsync = promisify(fs.readFile)
+const chunk = (array, size) => {
+	const result = []
+	for (let i = 0; i < array.length; i += size) {
+		result.push(array.slice(i, i + size))
+	}
+	return result
+}
 
 const syncData = async () => {
 	try {
@@ -19,14 +22,18 @@ const syncData = async () => {
 		const jsonFilename = `${folderName}/data.json`
 		const mdFilename = `${folderName}/README.md`
 
-		if (!fs.existsSync(folderName)) {
-			fs.mkdirSync(folderName, { recursive: true })
+		try {
+			await fs.mkdir(folderName, { recursive: true })
+		} catch (e) {
+			if (e.code !== 'EEXIST') throw e
 		}
 
 		let jsonData = []
-		if (fs.existsSync(jsonFilename)) {
-			const jsonContent = await readFileAsync(jsonFilename, 'utf8')
+		try {
+			const jsonContent = await fs.readFile(jsonFilename, 'utf8')
 			jsonData = JSON.parse(jsonContent)
+		} catch (e) {
+			if (e.code !== 'ENOENT') throw e
 		}
 		const existingItemIndex = jsonData.findIndex(
 			(item) => item.startdate === imageData.startdate
@@ -34,13 +41,16 @@ const syncData = async () => {
 		if (existingItemIndex === -1) {
 			jsonData.push(imageData)
 			jsonData.sort((a, b) => (a.startdate > b.startdate ? -1 : 1))
-			await writeFileAsync(jsonFilename, JSON.stringify(jsonData, null, 2))
+			await fs.writeFile(jsonFilename, JSON.stringify(jsonData, null, 2))
 		}
 
-		const dynamicContent = generateMarkdownContent(jsonData, monthString)
+		const dynamicContent = await generateMarkdownContent(jsonData, monthString)
 
-		await writeFileAsync(mdFilename, dynamicContent)
-		await writeFileAsync('README.md', replaceMarkdownContent(dynamicContent))
+		await fs.writeFile(mdFilename, dynamicContent)
+		await fs.writeFile(
+			'README.md',
+			await replaceMarkdownContent(dynamicContent)
+		)
 	} catch (error) {
 		console.error('Something went wrong: ', error.message)
 	}
@@ -59,7 +69,7 @@ const generateTableRow = (length, cell) => {
 	return `|${content}|`
 }
 
-const generateMarkdownContent = (jsonData, month) => {
+const generateMarkdownContent = async (jsonData, month) => {
 	const rowNumber = 3
 	const resolutions = [
 		'240x320',
@@ -79,7 +89,7 @@ const generateMarkdownContent = (jsonData, month) => {
 		'UHD',
 	]
 
-	const archiveFolders = fs.readdirSync('archives', { withFileTypes: true })
+	const archiveFolders = await fs.readdir('archives', { withFileTypes: true })
 
 	let content = `## Wallpaper for ${month}` + '\n'
 
@@ -119,8 +129,8 @@ const generateMarkdownContent = (jsonData, month) => {
 	return content
 }
 
-const replaceMarkdownContent = (dynamicContent) => {
-	const staticContent = fs.readFileSync('template.md', 'utf8')
+const replaceMarkdownContent = async (dynamicContent) => {
+	const staticContent = await fs.readFile('template.md', 'utf8')
 	return staticContent.replace(
 		'<!-- GENERATED_CONTENT_PLACEHOLDER -->',
 		dynamicContent

@@ -10,11 +10,10 @@ exports.handler = async ({ queryStringParameters: params }) => {
 			},
 		}
 	} catch (e) {
+		console.error('API Error:', e.message)
 		return {
 			statusCode: 500,
-			body: JSON.stringify({
-				message: e.message,
-			}),
+			body: JSON.stringify({ message: 'Internal server error' }),
 		}
 	}
 }

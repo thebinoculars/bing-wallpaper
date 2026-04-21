@@ -60,8 +60,13 @@ function displayImage(imageData) {
 	elements.error.classList.add('hidden')
 
 	const imageUrl = `https://www.bing.com${imageData.urlbase}_1920x1080.jpg`
+	elements.wallpaperImage.classList.remove('loaded')
 	elements.wallpaperImage.src = imageUrl
 	elements.wallpaperImage.alt = imageData.copyright
+
+	elements.wallpaperImage.onload = () => {
+		elements.wallpaperImage.classList.add('loaded')
+	}
 
 	document.title = imageData.copyright
 	elements.imageTitle.textContent = imageData.copyright

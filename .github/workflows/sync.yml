@@ -1,6 +1,7 @@
 name: Daily Sync
 
 on:
+  workflow_dispatch:
   schedule:
     - cron: '0 9 * * *'
     - cron: '0 21 * * *'
@@ -30,5 +31,5 @@ jobs:
           git config --global user.email "${GITHUB_ACTOR_ID}+${GITHUB_ACTOR}@users.noreply.github.com"
           git fetch origin master
           git add .
-          git diff --quiet && git diff --staged --quiet || git commit -m "Automated sync"
+          git diff --quiet && git diff --staged --quiet || git commit -m "automated sync"
           git push
